@@ -1,4 +1,4 @@
-//GET  http://localhost:3000/api/products/list
+GET  http://localhost:3000/api/user/list
 
 
 # GET  http://localhost:3000/api/products/getProductId?id=1
@@ -13,4 +13,4 @@
 # 	"type":"OKKKK"
 # }
 
-DELETE  http://localhost:3000/api/products/deleteProduct?id=101
+# DELETE  http://localhost:3000/api/products/deleteProduct?id=101
