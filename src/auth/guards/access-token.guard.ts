@@ -7,6 +7,7 @@ import { Reflector } from '@nestjs/core'
 import { REQUEST_USER_KEY } from '../../constants'
 import jwtConfig from '../../config/jwt.config'
 import { IS_PUBLIC_KEY } from '../../common/decorators/public.decorator'
+import { ResultDto } from 'src/utils/result.dto'
 
 @Injectable()
 export class AccessTokenGuard implements CanActivate {
@@ -25,6 +26,7 @@ export class AccessTokenGuard implements CanActivate {
       const request = context.switchToHttp().getRequest()
       const token = this.extractTokenFromHeader(request)
       if (!token)
+
         throw new UnauthorizedException('暂无权限')
 
       try {
