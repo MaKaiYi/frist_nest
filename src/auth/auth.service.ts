@@ -1,5 +1,5 @@
 // src/auth/auth.service.ts
-import { Inject, Injectable } from '@nestjs/common'
+import { HttpCode, Inject, Injectable, HttpStatus } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { UnauthorizedException } from '@nestjs/common'
 import { ConfigType } from '@nestjs/config'
@@ -47,7 +47,8 @@ export class AuthService {
 
 		const existingUser = await this.userRepository.findOne({ where: [{ name }] })
 		if (existingUser)
-			throw new UnauthorizedException('User already exists')
+
+			throw new UnauthorizedException('用户名已重复')
 
 		const hashedPassword = await this.hashingService.hash(password)
 		const user = this.userRepository.create({ ...signUpDto, password: hashedPassword })
@@ -60,12 +61,11 @@ export class AuthService {
 
 		const user = await this.userRepository.findOne({ where: { name } })
 		if (!user)
-			throw new UnauthorizedException('User not found')
+			throw new UnauthorizedException('用户不存在')
 
 		const isEqual = await this.hashingService.compare(password, user.password)
 		if (!isEqual)
-			throw new UnauthorizedException('Password is incorrect')
-
-		return await this.generateTokens(user)
+			throw new UnauthorizedException('密码错误')
+		return this.generateTokens(user)
 	}
 }

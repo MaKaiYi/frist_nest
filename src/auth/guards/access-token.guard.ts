@@ -25,14 +25,14 @@ export class AccessTokenGuard implements CanActivate {
       const request = context.switchToHttp().getRequest()
       const token = this.extractTokenFromHeader(request)
       if (!token)
-        throw new UnauthorizedException()
+        throw new UnauthorizedException('暂无权限')
 
       try {
         const payload = await this.jwtService.verifyAsync(token, this.jwtConfiguration)
         request[REQUEST_USER_KEY] = payload
       }
       catch (error) {
-        throw new UnauthorizedException()
+        throw new UnauthorizedException('系统错误')
       }
       return true
     }
