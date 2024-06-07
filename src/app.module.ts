@@ -6,18 +6,19 @@ import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { APP_FILTER } from '@nestjs/core';
-import { UnauthorizedExceptionFilter } from './utils/catch.error'
+import { UnauthorizedExceptionFilter } from './utils/catch.error';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: '.env.development'
+      envFilePath: ['.env.production', '.env.development'],
+      isGlobal: true,
     }),
     TypeOrmModule.forRootAsync({
       useFactory: () => ({
         type: 'mysql',
         host: process.env.DB_HOST,
-        port: +process.env.DB_PORT,
+        port: parseFloat(process.env.DB_PORT),
         username: process.env.DB_USERNAME,
         password: process.env.DB_PASSWORD,
         database: process.env.DB_DATABASE,
@@ -28,15 +29,18 @@ import { UnauthorizedExceptionFilter } from './utils/catch.error'
     ProductsModule,
     UsersModule,
     UserModule,
-    AuthModule],
+    AuthModule,
+  ],
   controllers: [],
-  providers: [{
-    provide: APP_FILTER,
-    useClass: UnauthorizedExceptionFilter
-  }],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: UnauthorizedExceptionFilter,
+    },
+  ],
 })
 export class AppModule implements NestModule {
-  configure (consumer: MiddlewareConsumer) {
+  configure(consumer: MiddlewareConsumer) {
     // ... middleware configurations
   }
 }
