@@ -1,13 +1,11 @@
 // create-user.dto.ts
 export class CreateUserDto {
+  id?: number;
+  name: string;
 
-	name: string;
+  sex: string;
 
-	sex: string;
+  createTime: Date;
 
-	createTime: Date;
-
-	updateTime: Date;
-
+  updateTime: Date;
 }
-
