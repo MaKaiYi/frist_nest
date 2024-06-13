@@ -39,7 +39,7 @@ export class AccessTokenGuard implements CanActivate {
         );
         request[REQUEST_USER_KEY] = payload;
       } catch (error) {
-        throw new UnauthorizedException('系统错误');
+        throw new UnauthorizedException('暂无权限');
       }
       return true;
     }
