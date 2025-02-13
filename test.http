@@ -1,10 +1,10 @@
 
 
-# @type = application/json
-# @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEwMDUsIm5hbWUiOiJ3YW5nd3UiLCJpYXQiOjE3MTE0NDY2OTcsImV4cCI6MTcxMTQ1MDI5NywiYXVkIjoibG9jYWxob3N0OjMwMDAiLCJpc3MiOiJsb2NhbGhvc3Q6MzAwMCJ9.TOoLo72X0X2r28qCCHO40N-ZuSL96D_leal3D7h-wsU
-# GET  http://localhost:3000/api/users
-# Content-Type: {{type}}
-# Authorization: Bearer {{token}}
+@type = application/json
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEwMDUsIm5hbWUiOiJ3YW5nd3UiLCJpYXQiOjE3Mzk0MzY3MzksImV4cCI6MTczOTQ0MDMzOSwiYXVkIjoiNjAuMjA0LjEzNi40MjozMDAwIiwiaXNzIjoiNjAuMjA0LjEzNi40MjozMDAwIn0.LMNUFs7OC7k0TVncMNmAI2-XZ-xz6G4-jLkpiMvr-qk
+GET  http://localhost:3000/api/user/list?page=1&pageSize=10&name=wan&sex=F
+Content-Type: {{type}}
+Authorization: Bearer {{token}}
 
 
 
@@ -23,11 +23,11 @@
 # DELETE  http://localhost:3000/api/products/deleteProduct?id=101
 
 
-POST  http://localhost:3000/api/auth/sign-in
-Content-Type: application/json
+# POST  http://localhost:3000/api/auth/sign-in
+# Content-Type: application/json
 
-{
-	"name":"wangwu",
-	"password":"123456"
-}
+# {
+# 	"name":"wangwu",
+# 	"password":"123456"
+# }
 

@@ -17,10 +17,10 @@ import { ResultDto } from 'src/utils/result.dto';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) { }
 
   @Post()
-  async create(@Body() createUserDto: CreateUserDto) {
+  async create (@Body() createUserDto: CreateUserDto) {
     try {
       const result = await this.userService.create(createUserDto);
       if (result) {
@@ -37,12 +37,13 @@ export class UserController {
   }
 
   @Get('list')
-  async findAll(
+  async findAll (
     @Query('page') page: number = 1,
     @Query('pageSize') pageSize: number = 10,
+    @Query() query: CreateUserDto,  // 从查询参数中获取条件
   ): Promise<ResultDto> {
     try {
-      const result = await this.userService.findAll(page, pageSize);
+      const result = await this.userService.findAll(page, pageSize, query);
       if (result) {
         return new ResultDto(true, 200, '', result);
       } else {
@@ -58,12 +59,12 @@ export class UserController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne (@Param('id') id: string) {
     return this.userService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+  update (@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     try {
       const result = this.userService.update(+id, updateUserDto);
       if (result) {
@@ -80,7 +81,7 @@ export class UserController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove (@Param('id') id: string) {
     try {
       const result = this.userService.remove(+id);
       if (result) {
